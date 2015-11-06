@@ -1,11 +1,11 @@
-require 'devtools'
-Devtools.init_rake_tasks
+# encoding: utf-8
 
-Rake.application.load_imports
-task('metrics:mutant').clear
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
-namespace :metrics do
-  task :mutant => :coverage do
-    $stderr.puts 'Concord is a dependency of mutant and zombification is currently defunkt :('
-  end
-end
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
+
+task :test    => :spec
+
+task :default => :spec
